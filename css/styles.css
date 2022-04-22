@@ -27,30 +27,30 @@ body {
     height: 700px;
 }
 
-#blue {
+.blue {
     grid-area: bluearea;
     background-color: blue;
     border-bottom-right-radius: 100%;
 }
 
-#red {
+.red {
     grid-area: redarea;
     background-color: red;
     border-top-right-radius: 100%;
 }
 
-#yellow {
+.yellow {
     grid-area: yellowarea;
     background-color: yellow;
     border-bottom-left-radius: 100%;
 }
 
-#green {
+.green {
     grid-area: greenarea;
     background-color: green;
     border-top-left-radius: 100%;
 }
 
 .selected {
-    opacity: 0.8;
+    opacity: 0.5;
 }

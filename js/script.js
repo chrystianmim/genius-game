@@ -7,10 +7,10 @@ let score = 0;
 // 2 - yellow
 // 3 - blue
 
-const green = document.querySelector('#green');
-const red = document.querySelector('#red');
-const yellow = document.querySelector('#yellow');
-const blue = document.querySelector('#blue');
+const green = document.querySelector('.green');
+const red = document.querySelector('.red');
+const yellow = document.querySelector('.yellow');
+const blue = document.querySelector('.blue');
 
 // generate random color order
 let shuffleOrder = () => {
@@ -26,7 +26,7 @@ let shuffleOrder = () => {
 
 // lights next color
 let lightColor = (element, number) => {
-    number *= 500;
+    number = number * 500;
 
     setTimeout(() => {
         element.classList.add('selected');
@@ -41,13 +41,67 @@ let lightColor = (element, number) => {
 let checkOrder = () => {
     for (let i in clickedOrder) {
         if (clickedOrder[i] != order[i]) {
-            lose();
+            gameOver();
             break;
         }
     }
 
-    if(clickedOrder.length == order.length) {
+    if (clickedOrder.length == order.length) {
         alert(`Your score: ${score}\nYou got it! Starting next level.`);
         nextLevel();
     }
 }
+
+// when player click
+let click = (color) => {
+    clickedOrder[clickedOrder.length] = color;
+    createColorElement(color).classList.add('selected');
+
+    setTimeout(() => {
+        createColorElement(color).classList.remove('selected');
+        checkOrder();
+    }, 250);
+}
+
+// return color
+let createColorElement = (color) => {
+    if (color == 0) {
+        return green;
+    } else if (color == 1) {
+        return red;
+    } else if (color == 2) {
+        return yellow;
+    } else if (color == 3) {
+        return blue;
+    }
+}
+
+// incrase game difficulty
+let nextLevel = () => {
+    score++;
+    shuffleOrder();
+}
+
+// game over funciton
+let gameOver = () => {
+    alert(`Score: ${score}.\nYou lose!\nClick OK to restart game.`)
+    order = [];
+    clickedOrder = [];
+
+    playGame();
+}
+
+// start game
+let playGame = () => {
+    alert('Welcome to Genesis! Starting new game!');
+    score = 0;
+
+    nextLevel();
+}
+
+green.onClick = () => click(0);
+red.onClick = () => click(1);
+yellow.onClick = () => click(2);
+blue.onClick = () => click(3);
+
+playGame();
